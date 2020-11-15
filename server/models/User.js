@@ -76,7 +76,7 @@ userSchema.methods.generateToken = function (cb) {
 };
 
 userSchema.statics.findByToken = function (token, cb) {
-  var user = this;
+  let user = this;
 
   // token decode
   jwt.verify(token, "secretToken", function (err, decoded) {

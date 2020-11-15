@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const port = 5000;
 const bodyParser = require("body-parser");
-const cookieParser = require("cookieparser");
+const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 
 const { auth } = require("./middleware/auth");
@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // application/json
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 const mongoose = require("mongoose");
 mongoose
@@ -25,11 +26,7 @@ mongoose
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-app.post("api/users/register", (req, res) => {
+app.post("/api/users/register", (req, res) => {
   // 회원 가입시 필요한 정보들을 client에서 가져오면
   // 그것들을 database에 넣어준다
 
@@ -37,7 +34,7 @@ app.post("api/users/register", (req, res) => {
 
   user.save((err, userInfo) => {
     if (err) return res.json({ success: false, err });
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, userInfo });
   });
 });
 
