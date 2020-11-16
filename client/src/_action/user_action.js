@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { LOGIN_USER, REGISTER_USER } from "./types";
+import { AUTH_USER, LOGIN_USER, REGISTER_USER } from "./types";
 
 export function loginUser(dataToSubmit) {
   const req = Axios.post("/api/users/login", dataToSubmit).then(
@@ -19,6 +19,15 @@ export function registerUser(dataToSubmit) {
 
   return {
     type: REGISTER_USER,
+    payload: req,
+  };
+}
+
+export function auth() {
+  const req = Axios.get("/api/users/auth").then((res) => res.data);
+
+  return {
+    type: AUTH_USER,
     payload: req,
   };
 }
