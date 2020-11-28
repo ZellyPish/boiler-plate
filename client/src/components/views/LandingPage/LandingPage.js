@@ -3,7 +3,7 @@ import React from "react";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
 function LandingPage(props) {
-  function onClickHandler() {
+  function onLogOutHandler() {
     Axios.get("/api/users/logout").then((res) => {
       if (res.data.success) {
         props.history.push("/login");
@@ -13,9 +13,28 @@ function LandingPage(props) {
     });
   }
 
+  function onRegisterHandler() {
+    props.history.push("/register");
+  }
+
+  function onLoginHandler() {
+    props.history.push("/login");
+  }
+
   return (
-    <div>
-      <button onClick={onClickHandler}>Log Out</button>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100vh",
+      }}
+    >
+      <button onClick={onRegisterHandler}>Register</button>
+      <button onClick={onLoginHandler}>Login</button>
+      <button onClick={onLogOutHandler}>Logout</button>
     </div>
   );
 }
